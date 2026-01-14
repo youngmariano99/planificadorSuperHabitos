@@ -44,13 +44,12 @@ builder.Services.AddAuthentication(options =>
     })
     .AddIdentityCookies(options => 
     {
-        // Permitir cookies en HTTP (Solo para desarrollo)
         options.ApplicationCookie?.Configure(c => 
         {
-            c.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest; // Permite HTTP
-            c.LoginPath = "/login"; // <--- ESTA LÍNEA ES LA SOLUCIÓN
+            // Esto es vital para que el login funcione en local (http)
+            c.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+            c.LoginPath = "/login";
             c.LogoutPath = "/logout";
-            c.AccessDeniedPath = "/access-denied";
         });
     });
 

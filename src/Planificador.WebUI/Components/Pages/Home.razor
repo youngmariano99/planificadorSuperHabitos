@@ -1,7 +1,7 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.Authorization
-@using System.Security.Claims
 @using Planificador.Application.Interfaces
+@using System.Security.Claims
 @attribute [Authorize]
 @inject AuthenticationStateProvider AuthStateProvider
 @inject IPlanningService PlanningService
@@ -11,28 +11,85 @@
 
 <div class="container mt-5">
     <div class="text-center mb-5">
-        <h1>👋 Hola de nuevo</h1>
-        <p class="lead text-muted">Tu centro de comando para el 2026.</p>
+        <h1>👋 Panel de Control</h1>
+        <p class="text-muted">Estado del Sistema: <strong class="@StatusColor">@StatusMessage</strong></p>
     </div>
 
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-sm border-0">
-                <div class="card-body text-center p-5">
-                    <i class="bi bi-journal-text display-1 text-primary mb-3"></i>
-                    <h3>Planificación Anual</h3>
-                    <p class="mb-4">Define tu Misión, Visión y tus 7 Roles clave.</p>
-                    
-                    <a href="/planificacion" class="btn btn-primary btn-lg px-4">
-                        <i class="bi bi-pencil-square me-2"></i> Ir a mi Planificación
-                    </a>
-                </div>
+    @if (IsLoading)
+    {
+        <div class="alert alert-info text-center">
+            <div class="spinner-border spinner-border-sm me-2"></div>
+            Cargando datos desde Base de Datos...
+        </div>
+    }
+    else if (!string.IsNullOrEmpty(ErrorMessage))
+    {
+        <div class="alert alert-danger">
+            <h4>🔴 Ocurrió un error</h4>
+            <p>@ErrorMessage</p>
+        </div>
+    }
+    else
+    {
+        <div class="card shadow border-0 text-center p-5">
+            <h3 class="text-primary mb-3">
+                @(HasPlan ? "✅ Plan Encontrado" : "⚠️ No hay Plan")
+            </h3>
+            
+            <p>ID Usuario: <small>@UserId</small></p>
+
+            <div class="mt-4">
+                <a href="/planificacion" class="btn btn-primary btn-lg">
+                    @(HasPlan ? "Editar Plan Existente" : "Crear Nuevo Plan") 
+                    <i class="bi bi-arrow-right"></i>
+                </a>
             </div>
         </div>
-    </div>
+    }
 </div>
 
 @code {
-    // Ya no necesitamos la redirección forzada automática aquí por ahora, 
-    // dejamos que el usuario elija entrar.
+    private bool IsLoading = true;
+    private bool HasPlan = false;
+    private string StatusMessage = "Iniciando...";
+    private string StatusColor = "text-warning";
+    private string ErrorMessage = "";
+    private string UserId = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            StatusMessage = "Autenticando...";
+            var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (user.Identity != null && user.Identity.IsAuthenticated)
+            {
+                UserId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "N/A";
+                StatusMessage = "Conectando a DB...";
+                
+                // Probamos la conexión
+                HasPlan = await PlanningService.HasPlanForYearAsync(UserId, 2026);
+                
+                StatusMessage = "Listo";
+                StatusColor = "text-success";
+            }
+            else
+            {
+                StatusMessage = "Usuario no autenticado";
+                StatusColor = "text-danger";
+            }
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = ex.Message + " | " + ex.InnerException?.Message;
+            StatusMessage = "Error Crítico";
+            StatusColor = "text-danger";
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
 }
