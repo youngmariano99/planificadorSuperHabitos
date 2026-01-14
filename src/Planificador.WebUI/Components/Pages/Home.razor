@@ -1,0 +1,38 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Authorization
+@using System.Security.Claims
+@using Planificador.Application.Interfaces
+@attribute [Authorize]
+@inject AuthenticationStateProvider AuthStateProvider
+@inject IPlanningService PlanningService
+@inject NavigationManager Navigation
+
+<PageTitle>Dashboard 2026</PageTitle>
+
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1>👋 Hola de nuevo</h1>
+        <p class="lead text-muted">Tu centro de comando para el 2026.</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center p-5">
+                    <i class="bi bi-journal-text display-1 text-primary mb-3"></i>
+                    <h3>Planificación Anual</h3>
+                    <p class="mb-4">Define tu Misión, Visión y tus 7 Roles clave.</p>
+                    
+                    <a href="/planificacion" class="btn btn-primary btn-lg px-4">
+                        <i class="bi bi-pencil-square me-2"></i> Ir a mi Planificación
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    // Ya no necesitamos la redirección forzada automática aquí por ahora, 
+    // dejamos que el usuario elija entrar.
+}

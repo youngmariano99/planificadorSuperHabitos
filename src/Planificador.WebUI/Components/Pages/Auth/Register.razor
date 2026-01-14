@@ -1,0 +1,97 @@
+@page "/register"
+@inject NavigationManager Navigation
+@inject HttpClient Http
+
+<h3>Crear Cuenta</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        @if (Errors.Any())
+        {
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach (var error in Errors)
+                    {
+                        <li>@error</li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <EditForm Model="Input" OnValidSubmit="RegisterUser" FormName="registerForm">
+            <DataAnnotationsValidator />
+            
+            <div class="mb-3">
+                <label>Email</label>
+                <InputText @bind-Value="Input.Email" class="form-control" />
+            </div>
+            
+            <div class="mb-3">
+                <label>Contraseña</label>
+                <InputText @bind-Value="Input.Password" type="password" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Registrarse</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    public RegisterModel Input { get; set; } = new();
+    public List<string> Errors { get; set; } = new();
+
+    private async Task RegisterUser()
+    {
+        Errors.Clear();
+        // Usamos la ruta completa relativa
+        var response = await Http.PostAsJsonAsync(Navigation.BaseUri + "account/register", Input);
+
+        if (response.IsSuccessStatusCode)
+        {
+            Navigation.NavigateTo("/login");
+        }
+        else
+        {
+            // Intentamos leer el formato estándar de errores de validación de .NET
+            try 
+            {
+                var problemDetails = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
+                
+                if (problemDetails?.Errors != null)
+                {
+                    foreach (var errorGroup in problemDetails.Errors)
+                    {
+                        foreach (var message in errorGroup.Value)
+                        {
+                            Errors.Add(message);
+                        }
+                    }
+                }
+                else 
+                {
+                    Errors.Add("Error desconocido al registrarse.");
+                }
+            }
+            catch
+            {
+                Errors.Add("Ocurrió un error de conexión o formato.");
+            }
+        }
+    }
+
+    public class RegisterModel
+    {
+        public string Email { get; set; } = "";
+        public string Password { get; set; } = "";
+    }
+
+    // Clase auxiliar para mapear el error estándar
+    public class ValidationProblemDetails
+    {
+        public string? Type { get; set; }
+        public string? Title { get; set; }
+        public int? Status { get; set; }
+        public Dictionary<string, string[]>? Errors { get; set; }
+    }
+}

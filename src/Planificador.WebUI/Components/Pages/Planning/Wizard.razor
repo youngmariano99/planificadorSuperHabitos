@@ -1,0 +1,236 @@
+@page "/planificacion"
+@using Microsoft.AspNetCore.Authorization
+@using System.Security.Claims
+@using Planificador.Application.Interfaces
+@using Planificador.Domain.Entities
+@attribute [Authorize]
+@inject AuthenticationStateProvider AuthStateProvider
+@inject IPlanningService PlanningService
+@inject NavigationManager Navigation
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-primary">Planificación 2026</h2>
+        <span class="badge bg-secondary">Paso @CurrentStep de 3</span>
+    </div>
+
+    <div class="progress mb-4" style="height: 10px;">
+        <div class="progress-bar" role="progressbar" style="width: @(ProgressPercentage)%;" aria-valuenow="@ProgressPercentage" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+
+    @if (IsLoading)
+    {
+        <div class="text-center py-5">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="mt-2">Cargando tu plan...</p>
+        </div>
+    }
+    else if (CurrentPlan != null)
+    {
+        <div class="card shadow-lg border-0">
+            <div class="card-body p-4 p-md-5">
+
+                @if (CurrentStep == 1)
+                {
+                    <h3 class="mb-3">🥂 Paso 1: Cerrando el ciclo</h3>
+                    <p class="text-muted">¿Cómo resumirías tu año anterior? ¿Qué aprendiste?</p>
+                    <textarea class="form-control mb-3" rows="5" @bind="CurrentPlan.YearReviewSummary"></textarea>
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-primary" @onclick="SaveStep1">Siguiente &rarr;</button>
+                    </div>
+                }
+
+                @if (CurrentStep == 2)
+                {
+                    <h3 class="mb-3">🧭 Paso 2: Identidad</h3>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Misión Personal</label>
+                        <textarea class="form-control" rows="3" @bind="MissionInput"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Visión a 5 Años</label>
+                        <textarea class="form-control" rows="3" @bind="VisionInput"></textarea>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-outline-secondary" @onclick="() => CurrentStep--">&larr; Atrás</button>
+                        <button class="btn btn-primary" @onclick="SaveStep2">Siguiente &rarr;</button>
+                    </div>
+                }
+
+                @if (CurrentStep == 3)
+                {
+                    <h3 class="mb-3">🎭 Paso 3: Tus Roles (Máximo 7)</h3>
+                    <p class="text-muted">Define las áreas clave de tu vida. Según SuperHábitos, priorizar es clave.</p>
+
+                    @if (CurrentPlan.Roles.Count >= 7)
+                    {
+                        <div class="alert alert-warning">
+                            <i class="bi bi-exclamation-triangle-fill"></i> Has alcanzado el límite de 7 roles. Para agregar uno nuevo, elimina uno existente.
+                        </div>
+                    }
+
+                    <div class="row g-4">
+                        <div class="col-md-5">
+                            <div class="card bg-light border-0">
+                                <div class="card-body">
+                                    <h5 class="card-title">Nuevo Rol</h5>
+                                    <EditForm Model="NewRole" OnValidSubmit="AddRole">
+                                        <DataAnnotationsValidator />
+                                        
+                                        <div class="mb-3">
+                                            <label>Nombre del Rol</label>
+                                            <InputText @bind-Value="NewRole.Name" class="form-control" placeholder="Ej: Padre, Emprendedor..." />
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label>Color</label>
+                                            <input type="color" class="form-control form-control-color w-100" @bind="NewRole.ColorHex" title="Elige un color">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label>Icono (Clase CSS)</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="@NewRole.IconName"></i></span>
+                                                <InputSelect @bind-Value="NewRole.IconName" class="form-select">
+                                                    <option value="bi bi-person">Persona</option>
+                                                    <option value="bi bi-briefcase">Trabajo</option>
+                                                    <option value="bi bi-heart">Salud/Amor</option>
+                                                    <option value="bi bi-book">Estudio</option>
+                                                    <option value="bi bi-house">Hogar</option>
+                                                    <option value="bi bi-controller">Ocio</option>
+                                                    <option value="bi bi-cash-coin">Finanzas</option>
+                                                </InputSelect>
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-success w-100" disabled="@(CurrentPlan.Roles.Count >= 7)">
+                                            <i class="bi bi-plus-circle"></i> Agregar Rol
+                                        </button>
+                                    </EditForm>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-7">
+                            <h5 class="mb-3">Roles Activos (@CurrentPlan.Roles.Count / 7)</h5>
+                            
+                            @if (!CurrentPlan.Roles.Any())
+                            {
+                                <div class="text-center text-muted py-4 border rounded border-dashed">
+                                    No has definido roles aún.
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="list-group">
+                                    @foreach (var rol in CurrentPlan.Roles)
+                                    {
+                                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded-circle d-flex align-items-center justify-content-center text-white me-3" 
+                                                     style="width: 40px; height: 40px; background-color: @rol.ColorHex;">
+                                                    <i class="@rol.IconName"></i>
+                                                </div>
+                                                <div>
+                                                    <h6 class="mb-0 fw-bold">@rol.Name</h6>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-sm btn-outline-danger" @onclick="() => DeleteRole(rol.Id)">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-5 pt-3 border-top">
+                        <button class="btn btn-outline-secondary" @onclick="() => CurrentStep--">&larr; Atrás</button>
+                        <button class="btn btn-primary btn-lg" @onclick="FinishWizard">Finalizar Planificación <i class="bi bi-check-lg"></i></button>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private int CurrentStep = 1;
+    private int ProgressPercentage => (int)((CurrentStep / 3.0) * 100);
+    private bool IsLoading = true;
+    private AnnualPlan? CurrentPlan;
+    
+    // Modelos temporales
+    private string MissionInput = "";
+    private string VisionInput = "";
+    private RoleModel NewRole = new();
+
+    // DTO simple para el formulario de rol
+    public class RoleModel 
+    {
+        public string Name { get; set; } = "";
+        public string ColorHex { get; set; } = "#0d6efd";
+        public string IconName { get; set; } = "bi bi-person";
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity != null && user.Identity.IsAuthenticated)
+        {
+            var userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
+            CurrentPlan = await PlanningService.InitiatePlanAsync(userId, 2026);
+            
+            MissionInput = CurrentPlan.Mission;
+            VisionInput = CurrentPlan.Vision;
+        }
+        IsLoading = false;
+    }
+
+    private async Task SaveStep1()
+    {
+        if (CurrentPlan == null) return;
+        await PlanningService.UpdateYearReviewAsync(CurrentPlan.Id, CurrentPlan.YearReviewSummary ?? "");
+        CurrentStep++;
+    }
+
+    private async Task SaveStep2()
+    {
+        if (CurrentPlan == null) return;
+        await PlanningService.UpdateIdentityAsync(CurrentPlan.Id, MissionInput, VisionInput);
+        CurrentStep++;
+    }
+
+    private async Task AddRole()
+    {
+        if (string.IsNullOrWhiteSpace(NewRole.Name) || CurrentPlan == null) return;
+        
+        // Llamamos al servicio para agregar (necesitamos implementar este método en el servicio abajo)
+        await PlanningService.AddRoleAsync(CurrentPlan.Id, NewRole.Name, NewRole.ColorHex, NewRole.IconName);
+        
+        // Recargamos el plan para ver el nuevo rol
+        var userId = CurrentPlan.UserId;
+        CurrentPlan = await PlanningService.GetPlanAsync(userId, 2026);
+        
+        // Reseteamos el formulario
+        NewRole = new RoleModel();
+    }
+
+    private async Task DeleteRole(Guid roleId)
+    {
+        if (CurrentPlan == null) return;
+        await PlanningService.DeleteRoleAsync(roleId);
+        
+        // Recargamos el plan
+        var userId = CurrentPlan.UserId;
+        CurrentPlan = await PlanningService.GetPlanAsync(userId, 2026);
+    }
+
+    private void FinishWizard()
+    {
+        Navigation.NavigateTo("/");
+    }
+}

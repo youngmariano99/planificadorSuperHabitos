@@ -1,0 +1,11 @@
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Domain\obj\Debug\net9.0\Planificador.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Domain\obj\Debug\net9.0\Planificador.Domain.AssemblyInfoInputs.cache
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Domain\obj\Debug\net9.0\Planificador.Domain.AssemblyInfo.cs
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Domain\obj\Debug\net9.0\Planificador.Domain.csproj.CoreCompileInputs.cache
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Domain\bin\Debug\net9.0\Planificador.Domain.deps.json
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Domain\bin\Debug\net9.0\Planificador.Domain.dll
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Domain\bin\Debug\net9.0\Planificador.Domain.pdb
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Domain\obj\Debug\net9.0\Planificador.Domain.dll
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Domain\obj\Debug\net9.0\refint\Planificador.Domain.dll
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Domain\obj\Debug\net9.0\Planificador.Domain.pdb
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Domain\obj\Debug\net9.0\ref\Planificador.Domain.dll

@@ -1,0 +1,66 @@
+@page "/login"
+@inject NavigationManager Navigation
+@inject IHttpClientFactory ClientFactory
+
+<h3>Iniciar Sesión</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <div class="alert alert-danger">@ErrorMessage</div>
+        }
+
+        <EditForm Model="Input" OnValidSubmit="LoginUser" FormName="loginForm">
+            <DataAnnotationsValidator />
+            
+            <div class="mb-3">
+                <label>Email</label>
+                <InputText @bind-Value="Input.Email" class="form-control" />
+            </div>
+            
+            <div class="mb-3">
+                <label>Contraseña</label>
+                <InputText @bind-Value="Input.Password" type="password" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Ingresar</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    public LoginModel Input { get; set; } = new();
+    public string ErrorMessage { get; set; } = "";
+
+    private async Task LoginUser()
+    {
+        // En Blazor Server, la forma más fácil de setear la cookie de Identity
+        // es hacer un POST tradicional o redirigir a un endpoint.
+        // Pero para simplificar, usaremos un redireccionamiento con login url.
+        // NOTA: Para este Sprint, simularemos el login visual o requeriremos recarga.
+        
+        // Vamos a usar la API de Identity que configuramos en Program.cs
+        var client = new HttpClient();
+        client.BaseAddress = new Uri(Navigation.BaseUri);
+        
+        var response = await client.PostAsJsonAsync("/account/login?useCookies=true", Input);
+        
+        if (response.IsSuccessStatusCode)
+        {
+            // Forzamos recarga para que el servidor reconozca la cookie
+            Navigation.NavigateTo("/", forceLoad: true);
+        }
+        else
+        {
+            ErrorMessage = "Email o contraseña inválidos.";
+        }
+    }
+
+    public class LoginModel
+    {
+        public string Email { get; set; } = "";
+        public string Password { get; set; } = "";
+    }
+}

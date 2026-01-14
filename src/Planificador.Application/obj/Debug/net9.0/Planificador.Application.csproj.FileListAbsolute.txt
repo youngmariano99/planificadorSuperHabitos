@@ -1,0 +1,15 @@
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Application\bin\Debug\net9.0\Planificador.Application.deps.json
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Application\bin\Debug\net9.0\Planificador.Application.dll
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Application\bin\Debug\net9.0\Planificador.Application.pdb
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Application\bin\Debug\net9.0\Planificador.Domain.dll
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Application\bin\Debug\net9.0\Planificador.Domain.pdb
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Application\obj\Debug\net9.0\Planificador.Application.csproj.AssemblyReference.cache
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Application\obj\Debug\net9.0\Planificador.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Application\obj\Debug\net9.0\Planificador.Application.AssemblyInfoInputs.cache
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Application\obj\Debug\net9.0\Planificador.Application.AssemblyInfo.cs
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Application\obj\Debug\net9.0\Planificador.Application.csproj.CoreCompileInputs.cache
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Application\obj\Debug\net9.0\Planific.0B2F0050.Up2Date
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Application\obj\Debug\net9.0\Planificador.Application.dll
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Application\obj\Debug\net9.0\refint\Planificador.Application.dll
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Application\obj\Debug\net9.0\Planificador.Application.pdb
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Application\obj\Debug\net9.0\ref\Planificador.Application.dll
