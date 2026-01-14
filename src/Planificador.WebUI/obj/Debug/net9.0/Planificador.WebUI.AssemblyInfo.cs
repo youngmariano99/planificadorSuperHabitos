@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Planificador.WebUI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dc6b56753c9e788f89b1a03ed9d7045be614cf0e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Planificador.WebUI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Planificador.WebUI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

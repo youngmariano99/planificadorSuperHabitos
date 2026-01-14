@@ -17,3 +17,4 @@ C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFIC
 C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Infrastructure\obj\Debug\net9.0\Planificador.Infrastructure.pdb
 C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Infrastructure\obj\Debug\net9.0\Planificador.Infrastructure.genruntimeconfig.cache
 C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Infrastructure\obj\Debug\net9.0\ref\Planificador.Infrastructure.dll
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Infrastructure\obj\Debug\net9.0\Planificador.Infrastructure.sourcelink.json

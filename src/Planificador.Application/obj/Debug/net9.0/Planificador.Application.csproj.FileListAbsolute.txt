@@ -13,3 +13,4 @@ C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFIC
 C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Application\obj\Debug\net9.0\refint\Planificador.Application.dll
 C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Application\obj\Debug\net9.0\Planificador.Application.pdb
 C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Application\obj\Debug\net9.0\ref\Planificador.Application.dll
+C:\Users\mari_\OneDrive\Escritorio\PROYECTOS\PLANIFICACIÓN\SISTEMAS DE PLANIFICACION\PlanificadorLife\src\Planificador.Application\obj\Debug\net9.0\Planificador.Application.sourcelink.json
